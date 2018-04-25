@@ -57,6 +57,7 @@ namespace TestFileWatcher
 			watcher.Changed += Watcher_Changed;
 			watcher.Created += Watcher_Created;
 			watcher.Deleted += Watcher_Deleted;
+			watcher.Renamed += Watcher_Renamed;
 			watcher.Error += Watcher_Error;
 
 			watcher.IncludeSubdirectories = true;
@@ -81,6 +82,11 @@ namespace TestFileWatcher
 		static void Watcher_Error (object sender, ErrorEventArgs e)
 		{
 			Console.WriteLine ("Error: {0}", e.GetException ());
+		}
+
+		static void Watcher_Renamed (object sender, RenamedEventArgs e)
+		{
+			Console.WriteLine ("Renamed: {0} -> {1}", e.OldName, e.Name);
 		}
 	}
 }
