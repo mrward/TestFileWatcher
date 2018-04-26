@@ -66,7 +66,7 @@ namespace TestFileWatcher
 				Console.WriteLine ("Using .NET file watcher.");
 			}
 
-			var watcher = new FileSystemWatcher (path);
+			var watcher = new MonoDevelop.FSW.FileSystemWatcher (path);
 			watcher.IncludeSubdirectories = true;
 			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName;
 			watcher.Changed += Watcher_Changed;
