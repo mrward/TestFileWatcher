@@ -42,8 +42,8 @@ namespace TestFileWatcher
 
 		static void Run (string[] args)
 		{
-			if (args.Length == 0) {
-				Console.WriteLine ("Directory argument not passed.");
+			if (args.Length < 1) {
+				ShowUsage ();
 				return;
 			}
 
@@ -53,15 +53,51 @@ namespace TestFileWatcher
 				return;
 			}
 
+			if (args.Length > 1) {
+				if (!ConfigureFileWatcherPlatform (args [1])) {
+					ShowUsage ();
+					return;
+				}
+			}
+
+			if (MonoDevelop.FSW.FileSystemWatcher.IsOSX) {
+				Console.WriteLine ("Using native OSX file watcher.");
+			} else {
+				Console.WriteLine ("Using .NET file watcher.");
+			}
+
 			var watcher = new FileSystemWatcher (path);
+			watcher.IncludeSubdirectories = true;
+			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName;
 			watcher.Changed += Watcher_Changed;
 			watcher.Created += Watcher_Created;
 			watcher.Deleted += Watcher_Deleted;
 			watcher.Renamed += Watcher_Renamed;
 			watcher.Error += Watcher_Error;
 
-			watcher.IncludeSubdirectories = true;
 			watcher.EnableRaisingEvents = true;
+		}
+
+		static void ShowUsage ()
+		{
+			Console.WriteLine ("TestFileWatcher directory -type:mono|osx");
+		}
+
+		static bool ConfigureFileWatcherPlatform (string arg)
+		{
+			const string typeArgument = "-type:";
+			if (!arg.StartsWith (typeArgument, StringComparison.OrdinalIgnoreCase)) {
+				return false;
+			}
+
+			arg = arg.Substring (typeArgument.Length);
+			if (!Enum.TryParse (arg, true, out MonoDevelop.FSW.FileSystemWatcher.Platform platform)) {
+				return false;
+			}
+
+			MonoDevelop.FSW.FileSystemWatcher.CurrentPlatform = platform;
+
+			return true;
 		}
 
 		static void Watcher_Changed (object sender, FileSystemEventArgs e)

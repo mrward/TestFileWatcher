@@ -19,6 +19,7 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
@@ -27,6 +28,7 @@
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
     <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -34,6 +36,32 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MonoDevelop.FSW\Mono\FileSystemWatcher.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\FileSystemWatcher.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\FileSystemWatcher.OSX.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.CoreFoundation.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.Error.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.EventStream.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.IOError.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.Libraries.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.PathConf.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.RealPath.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.RunLoop.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\Interop.Sync.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\PathInternal.CaseSensitivity.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\PathInternal.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\PathInternal.Unix.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\PatternMatcher.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\SafeCreateHandle.OSX.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\SafeEventStreamHandle.OSX.cs" />
+    <Compile Include="MonoDevelop.FSW\OSX\SR.cs" />
+    <Compile Include="MonoDevelop.FSW\FileSystemWatcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\lib\libsystemnative.dylib">
+      <Link>libsystemnative.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
