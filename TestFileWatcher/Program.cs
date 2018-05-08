@@ -68,7 +68,7 @@ namespace TestFileWatcher
 
 			var watcher = new MonoDevelop.FSW.FileSystemWatcher (path);
 			watcher.IncludeSubdirectories = true;
-			watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName;
+			watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 			watcher.Changed += Watcher_Changed;
 			watcher.Created += Watcher_Created;
 			watcher.Deleted += Watcher_Deleted;
